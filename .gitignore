@@ -1,0 +1,25 @@
+# Ignorar la carpeta de módulos de Node.js para el frontend
+acacia-frontend/node_modules/
+
+# Ignorar la carpeta de compilación para el frontend (si existe)
+acacia-frontend/build/
+
+# Ignorar la carpeta de módulos de Node.js para el backend (si Laravel la usa con npm)
+acacia/node_modules/
+
+# Ignorar la carpeta de dependencias de Composer para Laravel (backend)
+acacia/vendor/
+
+# Ignorar archivos de entorno local
+.env
+acacia/.env
+
+# Otros archivos y directorios comunes a ignorar
+*.log
+*.swp
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.idea/
+.vscode/
