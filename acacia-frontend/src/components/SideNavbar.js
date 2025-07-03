@@ -1,6 +1,6 @@
 // src/components/SideNavbar.js
 import imagenes from '../assets/imagenes.js';
-import { Link, useLocation } from "react-router-dom"; // Outlet no se usa aquí directamente, pero Link y useLocation sí.
+import { Link, useLocation } from "react-router-dom";
 
 import {
     Drawer,
@@ -15,21 +15,13 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StatisticsIcon from '@mui/icons-material/QueryStats';
+import LoginIcon from '@mui/icons-material/Login';
 
 const drawerWidth = 340;
 
 function SideNavbar() {
     const location = useLocation();
-    // Obtener la ruta actual para saber qué elemento resaltar
-    // La ruta de inicio es '/', otras rutas son '/proyectos', '/investigadores', etc.
     const currentPath = location.pathname;
-
-    // La lógica de displayText en SideNavbar no afecta la navegación.
-    // Solo se utiliza para mostrar un texto en algún lugar del SideNavbar,
-    // pero no es necesario para el funcionamiento de los botones de navegación.
-    // Si quieres un título dinámico en algún otro lugar de la página principal
-    // basado en la ruta, entonces es útil. Por ahora, lo mantenemos separado de la navegación.
-
     return (
         <Drawer
             sx={{
@@ -130,6 +122,14 @@ function SideNavbar() {
                     label="Estadísticas"
                     to="/estadisticas"
                     selected={currentPath === '/estadisticas'}
+                />
+
+                {/* Login */}
+                <NavIconButton
+                    icon={<LoginIcon sx={{ fontSize: 40 }} />}
+                    label="Login"
+                    to="/login"
+                    selected={currentPath === '/login'}
                 />
             </Box>
 

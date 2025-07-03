@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import InvestigadoresForm from './components/InvestigadorForm';
 import ProyectosForm from './components/ProyectoForm';
 import EstadisticasDashboard from './components/EstadisticasDashboard';
+import LoginView from './components/LoginView';
 
 const drawerWidth = 340;
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/reg-investigador" element={<InvestigadoresForm />} />
             <Route path="/reg-proyecto" element={<ProyectosForm />} />
             <Route path="/estadisticas" element={<EstadisticasDashboard />} />
+            <Route path="/login" element={<LoginView />} />
             {/* Puedes agregar más rutas aquí según sea necesario */}
           </Routes>
         </Box>
