@@ -1,16 +1,7 @@
 // src/services/InvestigadoresService.js
-import axios from 'axios';
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
-// Crear instancia de axios con configuración base
-export const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: 10000, // 10 segundos de timeout
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-// Interceptor para manejar errores globalmente
+//import axios from 'axios';
+import api from './api'; // con token
+import apiPublic from './apiPublic'; // sin token
 api.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -34,7 +25,7 @@ export const investigadoresService = {
     getAllInvestigadores: async () => {
         try {
             console.log('Service: Obteniendo todos los investigadores...'); // Debug log
-            const response = await api.get('/api/investigadores');
+            const response = await apiPublic.get('/investigadores');
             console.log('Service: Respuesta recibida:', response.data); // Debug log
             return response.data;
         } catch (error) {
@@ -46,7 +37,7 @@ export const investigadoresService = {
     // Obtener un investigador por ID
     getInvestigadoresById: async (id) => {
         try {
-            const response = await api.get(`/api/investigadores/${id}`);
+            const response = await apiPublic.get(`/investigadores/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al obtener investigadores ${id}:`, error);
@@ -57,7 +48,7 @@ export const investigadoresService = {
     // Obtener investigadores por grupo y módulo
     getInvestigadoresGpModulo: async () => {
         try {
-            const response = await api.get('/api/investigadores/gp-modulo');
+            const response = await apiPublic.get('/investigadores/gp-modulo');
             return response.data;
         } catch (error) {
             console.error('Service: Error al obtener investigadores por grupo y módulo:', error);
@@ -67,7 +58,7 @@ export const investigadoresService = {
     // Crear un nuevo investigador
     createInvestigador: async (investigadorData) => {
         try {
-            const response = await api.post('/api/investigadores', investigadorData);
+            const response = await api.post('/investigadores', investigadorData);
             return response.data;
         } catch (error) {
             console.error('Service: Error al crear investigador:', error);
@@ -78,7 +69,7 @@ export const investigadoresService = {
     // Actualizar un investigador
     updateInvestigadores: async (id, investigadorData) => {
         try {
-            const response = await api.put(`/api/investigadores/${id}`, investigadorData);
+            const response = await api.put(`/investigadores/${id}`, investigadorData);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al actualizar investigador ${id}:`, error);
@@ -89,7 +80,7 @@ export const investigadoresService = {
     // Eliminar un investigador
     deleteInvestigador: async (id) => {
         try {
-            const response = await api.delete(`/api/investigadores/${id}`);
+            const response = await api.delete(`/investigadores/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al eliminar investigador ${id}:`, error);
@@ -100,7 +91,7 @@ export const investigadoresService = {
     // Buscar investigador por término
     searchInvestigador: async (searchTerm) => {
         try {
-            const response = await api.get(`/api/investigadores/search?q=${encodeURIComponent(searchTerm)}`);
+            const response = await apiPublic.get(`/investigadores/search?q=${encodeURIComponent(searchTerm)}`);
             return response.data;
         } catch (error) {
             console.error('Service: Error al buscar investigadores:', error);

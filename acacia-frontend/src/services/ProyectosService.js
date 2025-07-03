@@ -1,16 +1,6 @@
 // src/services/ProyectosService.js
-import axios from 'axios';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
-
-// Crear instancia de axios con configuración base
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: 10000, // 10 segundos de timeout
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import api from './api'; // con token
+import apiPublic from './apiPublic'; // sin token
 
 // Interceptor para manejar errores globalmente
 api.interceptors.response.use(
@@ -35,7 +25,7 @@ export const proyectosService = {
     getAllProyectos: async () => {
         try {
             console.log('Service: Obteniendo todos los proyectos...'); // Debug log
-            const response = await api.get('/api/proyectos');
+            const response = await apiPublic.get('/proyectos');
             console.log('Service: Respuesta recibida:', response.data); // Debug log
             return response.data;
         } catch (error) {
@@ -47,18 +37,29 @@ export const proyectosService = {
     // Obtener un proyecto por ID
     getProyectoById: async (id) => {
         try {
-            const response = await api.get(`/api/proyectos/${id}`);
+            const response = await apiPublic.get(`/proyectos/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al obtener proyecto ${id}:`, error);
             throw error;
         }
     },
+    // Obtener proyectos por módulo
+    getProyectosPorModulo: async (moduloId) => {
+        try {
+            const response = await apiPublic.get(`/proyectos/modulo/${moduloId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Service: Error al obtener proyecto ${moduloId}:`, error);
+            throw error;
+        }
+
+    },
 
     // Crear un nuevo proyecto
     createProyecto: async (proyectoData) => {
         try {
-            const response = await api.post('/api/proyectos', proyectoData);
+            const response = await api.post('/proyectos', proyectoData);
             return response.data;
         } catch (error) {
             console.error('Error al crear proyecto:', error);
@@ -69,7 +70,7 @@ export const proyectosService = {
     // Actualizar un proyecto
     updateProyecto: async (id, proyectoData) => {
         try {
-            const response = await api.put(`/api/proyectos/${id}`, proyectoData);
+            const response = await api.put(`/proyectos/${id}`, proyectoData);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al actualizar proyecto ${id}:`, error);
@@ -80,7 +81,7 @@ export const proyectosService = {
     // Eliminar un proyecto
     deleteProyecto: async (id) => {
         try {
-            const response = await api.delete(`/api/proyectos/${id}`);
+            const response = await api.delete(`/proyectos/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Service: Error al eliminar proyecto ${id}:`, error);
@@ -91,7 +92,7 @@ export const proyectosService = {
     // Buscar proyectos por término
     searchProyectos: async (searchTerm) => {
         try {
-            const response = await api.get(`/api/proyectos/search?q=${encodeURIComponent(searchTerm)}`);
+            const response = await apiPublic.get(`/proyectos/search?q=${encodeURIComponent(searchTerm)}`);
             return response.data;
         } catch (error) {
             console.error('Service: Error al buscar proyectos:', error);
@@ -100,4 +101,4 @@ export const proyectosService = {
     }
 };
 
-export { api };
+export default proyectosService;

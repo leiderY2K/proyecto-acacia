@@ -9,6 +9,8 @@ import InvestigadoresForm from './components/InvestigadorForm';
 import ProyectosForm from './components/ProyectoForm';
 import EstadisticasDashboard from './components/EstadisticasDashboard';
 import LoginView from './components/LoginView';
+import MenuPrincipal from './components/MenuPrincipal';
+import PrivateRoute from './components/PrivateRoute';
 
 const drawerWidth = 340;
 
@@ -21,17 +23,41 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginView />} />
+            
+            {/* Rutas públicas */}
             <Route path="/proyectos" element={<ProyectosList />} />
             <Route path="/investigadores" element={<InvestigadoresList />} />
-            <Route path="/reg-investigador" element={<InvestigadoresForm />} />
-            <Route path="/reg-proyecto" element={<ProyectosForm />} />
             <Route path="/estadisticas" element={<EstadisticasDashboard />} />
-            <Route path="/login" element={<LoginView />} />
-            {/* Puedes agregar más rutas aquí según sea necesario */}
+
+            {/* Rutas protegidas */}
+            <Route path="/reg-investigador" element={
+                //<PrivateRoute>
+                  <InvestigadoresForm />
+                //</PrivateRoute>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                //<PrivateRoute>
+                  <MenuPrincipal />
+                //</PrivateRoute>
+              }
+            />
+            <Route
+              path="/reg-proyecto"
+              element={
+                //<PrivateRoute>
+                  <ProyectosForm />
+                //</PrivateRoute>
+              }
+            />
           </Routes>
         </Box>
       </Box>
     </Router>
   );
 }
+
 export default App;

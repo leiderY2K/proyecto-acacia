@@ -1,29 +1,27 @@
 // src/components/LoginView.js
 import React, { useState } from 'react';
 import {
-    Box,
-    TextField,
-    Button,
-    Typography,
-    CircularProgress,
-    Alert,
-    Paper
+    Box, TextField, Button, Typography,
+    CircularProgress, Alert, Paper
 } from '@mui/material';
 import { useLogin } from '../hooks/useLogin';
+import { useNavigate } from 'react-router-dom';
 
 function LoginView() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { login, loading, error } = useLogin();
     const [successMessage, setSuccessMessage] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const result = await login(email, password);
         if (result.success) {
             setSuccessMessage(`Bienvenido ${result.user.name || result.user.email}`);
-            // Aquí podrías redirigir, por ejemplo:
-            // navigate('/dashboard');
+            setTimeout(() => {
+                navigate('/menu');
+            }, 1000);
         }
     };
 
@@ -65,12 +63,8 @@ function LoginView() {
                     </Box>
                 </form>
 
-                {error && (
-                    <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>
-                )}
-                {successMessage && (
-                    <Alert severity="success" sx={{ mt: 2 }}>{successMessage}</Alert>
-                )}
+                {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+                {successMessage && <Alert severity="success" sx={{ mt: 2 }}>{successMessage}</Alert>}
             </Paper>
         </Box>
     );

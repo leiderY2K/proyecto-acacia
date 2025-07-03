@@ -16,12 +16,54 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import StatisticsIcon from '@mui/icons-material/QueryStats';
 import LoginIcon from '@mui/icons-material/Login';
+import SchoolIcon from '@mui/icons-material/School';
 
 const drawerWidth = 340;
 
 function SideNavbar() {
     const location = useLocation();
     const currentPath = location.pathname;
+
+    function NavIconButton({ icon, label, to, onClick, selected = false }) {
+        const commonProps = {
+            sx: {
+                backgroundColor: selected ? '#e6a4cf' : '#f3c6e0',
+                borderRadius: '10px',
+                width: 120,
+                height: 90,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                '&:hover': {
+                    backgroundColor: '#e6a4cf'
+                },
+                mx: 'auto'
+            },
+            onClick
+        };
+
+        return (
+            <ListItemButton
+                {...(to ? { component: Link, to } : {})}
+                {...commonProps}
+            >
+                <ListItemIcon sx={{ color: selected ? '#fff' : '#333', minWidth: 0 }}>
+                    {icon}
+                </ListItemIcon>
+                <ListItemText
+                    primary={label}
+                    sx={{
+                        textAlign: 'center',
+                        color: selected ? '#fff' : '#333',
+                        minWidth: 0,
+                        mt: 0.5
+                    }}
+                />
+            </ListItemButton>
+        );
+    }
+
+
     return (
         <Drawer
             sx={{
@@ -31,7 +73,7 @@ function SideNavbar() {
                     width: drawerWidth,
                     boxSizing: 'border-box',
                     backgroundColor: '#D09AC4',
-                    backgroundImage: `linear-gradient(to bottom, #D09AC4, #EED3E3)`,
+                    backgroundImage: 'linear-gradient(to bottom, #D09AC4, #EED3E3)',
                     color: '#333',
                     display: 'flex',
                     flexDirection: 'column',
@@ -113,7 +155,7 @@ function SideNavbar() {
                     icon={<AssignmentIcon sx={{ fontSize: 40 }} />}
                     label="Proyectos"
                     to="/proyectos"
-                    selected={currentPath === '/proyectos'} 
+                    selected={currentPath === '/proyectos'}
                 />
 
                 {/* Estadísticas */}
@@ -131,6 +173,13 @@ function SideNavbar() {
                     to="/login"
                     selected={currentPath === '/login'}
                 />
+                {/* Acacia UD */}
+                <NavIconButton
+                    icon={<SchoolIcon sx={{ fontSize: 40 }} />}
+                    label="Acacia UD"
+                    onClick={() => window.location.href = 'https://acacia.red/udfjc/'}
+                />
+
             </Box>
 
             {/* ------------ Espacio inferior-------------- */}

@@ -5,31 +5,24 @@ import { authService } from '../services/authService';
 export const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [token, setToken] = useState(null);
 
     const login = async (email, password) => {
         setLoading(true);
         setError(null);
         try {
-            const result = await authService.login({ email, password });
-            setToken(result.token);
+            const data = await authService.login({ email, password });
 
-            // Guardar token en localStorage para futuras peticiones
-            localStorage.setItem('auth_token', result.token);
+            localStorage.setItem('auth_token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
 
-            return { success: true, user: result.user };
+            return { success: true, user: data.user };
         } catch (err) {
-            setError('Credenciales inválidas o error del servidor');
+            setError(err.message || 'Error de autenticación');
             return { success: false };
         } finally {
             setLoading(false);
         }
     };
 
-    return {
-        login,
-        loading,
-        error,
-        token
-    };
+    return { login, loading, error };
 };

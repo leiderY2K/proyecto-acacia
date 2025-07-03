@@ -24,15 +24,33 @@ class ProyectoService
      */
     public function obtenerPorModulo($idModulo)
     {
-        return DB::table('Proyecto as p')
-            ->select('p.nombre_proyecto', 'p.id_tipo_proyecto', 'i.nombre_completo as nombre_investigador', 'im.id_modulo')
-            ->distinct()
-            ->join('InvestigadorProyecto as ip', 'p.id_proyecto', '=', 'ip.id_proyecto')
-            ->join('Investigador as i', 'ip.id_investigador', '=', 'i.id_investigador')
-            ->join('InvestigadorModulo as im', 'i.id_investigador', '=', 'im.id_investigador')
-            ->where('im.id_modulo', '=', $idModulo)
-            ->get();
+        try {
+            $proyectos = DB::table('Proyecto as p')
+                ->join('InvestigadorProyecto as ip', 'p.id_proyecto', '=', 'ip.id_proyecto')
+                ->join('Investigador as i', 'ip.id_investigador', '=', 'i.id_investigador')
+                ->join('InvestigadorModulo as im', 'i.id_investigador', '=', 'im.id_investigador')
+                ->where('im.id_modulo', $idModulo)
+                ->select('p.id_proyecto')
+                ->distinct()
+                ->pluck('p.id_proyecto');
+
+            $resultado = Proyecto::with(['tipoProyecto', 'estado', 'investigadores.modulos'])
+                ->whereIn('id_proyecto', $proyectos)
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'proyectos' => $resultado
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al obtener proyectos por módulo',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
+
 
     public function crear(array $datos)
     {
