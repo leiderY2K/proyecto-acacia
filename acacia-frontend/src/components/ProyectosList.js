@@ -561,13 +561,42 @@ function ProyectosList() {
                                         </>
                                     )}
 
-                                    {selectedProyecto.anexo && (
+                                    {/* {selectedProyecto.anexo && (
                                         <>
                                             <Typography variant="h6" fontWeight={600} mb={2}>Información adicional:</Typography>
                                             <Typography variant="body1" mb={3} p={2} bgcolor="#f8f9fa" borderRadius={2}>
                                                 {selectedProyecto.anexo}
                                             </Typography>
                                         </>
+                                    )} */}
+
+                                    {selectedProyecto?.anexo && (
+                                        <Box mt={3} textAlign="center">
+                                            <Button
+                                                variant="contained"
+                                                href={selectedProyecto.anexo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                startIcon={<LaunchIcon />}
+                                                sx={{
+                                                    backgroundColor: '#7e57c2',
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                    borderRadius: 3,
+                                                    px: 4,
+                                                    py: 1.5,
+                                                    boxShadow: '0 4px 12px rgba(126, 87, 194, 0.3)',
+                                                    '&:hover': {
+                                                        backgroundColor: '#5e35b1',
+                                                        transform: 'translateY(-2px)',
+                                                        boxShadow: '0 6px 16px rgba(126, 87, 194, 0.4)',
+                                                    },
+                                                    transition: 'all 0.3s ease',
+                                                }}
+                                            >
+                                                Información adicional
+                                            </Button>
+                                        </Box>
                                     )}
 
                                     {selectedProyecto?.enlace && (

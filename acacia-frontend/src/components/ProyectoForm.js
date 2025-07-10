@@ -345,7 +345,7 @@ function ProyectoForm() {
 
                                             <TextField
                                                 name="anexo"
-                                                label="Anexo (Documentación técnica, etc.)"
+                                                label="Anexo (URL)"
                                                 variant="outlined"
                                                 fullWidth
                                                 multiline

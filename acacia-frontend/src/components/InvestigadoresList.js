@@ -22,7 +22,6 @@ import {
     FilterList as FilterIcon
 } from '@mui/icons-material';
 
-// Importa el hook useInvestigadores que ya tienes definido
 import { useInvestigadoresGpModulo as useInvestigadores } from '../hooks/useInvestigadoresGpModulo';
 
 const ITEMS_PER_PAGE = 5; // Cantidad de filas por página en la tabla
@@ -56,7 +55,7 @@ function InvestigadoresList() {
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const investigadoresToDisplay = filteredInvestigadores.slice(startIndex, endIndex);
 
-    // *** CORRECCIÓN: Definición de handleChangePage ***
+    // Definición de handleChangePage 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -213,7 +212,7 @@ function InvestigadoresList() {
                         <Pagination
                             count={totalPages}
                             page={page}
-                            onChange={handleChangePage} // Aquí es donde se hacía referencia sin definirla
+                            onChange={handleChangePage}
                             color="primary"
                             sx={{
                                 '& .MuiPaginationItem-root': {
