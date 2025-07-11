@@ -35,7 +35,7 @@ import {
 import { useProyectos } from '../hooks/useProyectos';
 import { useSearchParams } from 'react-router-dom';
 
-const PROJECTS_PER_LOAD = 12;
+const PROJECTS_PER_LOAD = 12; // cant de proyectos visbles por defecto
 
 function ProyectosList() {
     const [searchTerm, setSearchTerm] = useState('');

@@ -102,7 +102,7 @@ const SummaryCard = ({ title, value, icon: Icon, trend, color = '#1976d2' }) => 
     );
 };
 
-// Componente mejorado para gráficos de pie
+// Componente para gráficos de pie
 const CustomPieChart = ({ data, title, dataKey, nameKey }) => {
     const total = data?.reduce((sum, item) => sum + (item[dataKey] || 0), 0) || 0;
 
@@ -187,7 +187,7 @@ const CustomPieChart = ({ data, title, dataKey, nameKey }) => {
     );
 };
 
-// Componente mejorado para gráficos de barras
+// Componente para gráficos de barras
 const CustomBarChart = ({ data, title, dataKey, nameKey }) => {
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
